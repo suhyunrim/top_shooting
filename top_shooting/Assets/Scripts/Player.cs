@@ -2,34 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : CollisionObject
 {
     public GameObject BulletPrefab;
     public int BulletTerm = 20;
     public float MovementSpeed = 0.1f;
 
     private int bulletTermCount = 0;
+    private float defaultY;
 
     private void Start()
     {
+        defaultY = transform.position.y;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-        {
-            transform.position = transform.position + new Vector3(-MovementSpeed, 0);
-        }
+        base.Update();
 
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        MovementVector = Vector2.zero;
+
+        if (Input.GetMouseButton(0))
         {
-            transform.position = transform.position + new Vector3(MovementSpeed, 0);
+            var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            var diff = worldPosition.x - transform.position.x;
+            if (Mathf.Abs(diff) < 0.05f)
+            {
+                transform.position = new Vector3(worldPosition.x, defaultY, 0);
+            }
+            else
+            {
+                MovementVector = new Vector2(diff / 10f, 0);
+            }
         }
 
         if (bulletTermCount++ >= BulletTerm)
         {
             Fire();
-
             bulletTermCount = 0;
         }
     }
@@ -38,5 +47,10 @@ public class Player : MonoBehaviour
     {
         var bulletObject = Instantiate(BulletPrefab);
         bulletObject.transform.position = transform.position;
+        bulletObject.transform.Translate(new Vector3(0, 0.5f));
+    }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
     }
 }

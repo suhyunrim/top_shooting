@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : CollisionObject
 {
     private void Start()
     {
+        MovementVector = new Vector2(0, 0.1f);
     }
 
-    private void Update()
-    {
-        transform.position = transform.position + new Vector3(0, 0.1f);
-    }
-
-    private void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "Wall")
         {
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.GetComponent<Enemy>() != null)
+        {
+            collision.gameObject.GetComponent<Enemy>().DecreaseHP();
             Destroy(gameObject);
         }
     }
