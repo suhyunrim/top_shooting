@@ -30,6 +30,8 @@ public class Enemy : CollisionObject
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
 
+            GameHUD.Instance.AddScore(10);
+
             Invoke("DestroySelf", 1f);
         }
     }
