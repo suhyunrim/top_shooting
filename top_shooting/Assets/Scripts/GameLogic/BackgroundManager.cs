@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundManager : MonoBehaviour
@@ -19,7 +18,7 @@ public class BackgroundManager : MonoBehaviour
         {
             var prevBack = BackgroundSprites[i - 1];
             var curBack = BackgroundSprites[i];
-            curBack.transform.position = new Vector2(0, prevBack.transform.position.y + spriteHeight);
+            curBack.transform.localPosition = new Vector3(0, prevBack.transform.position.y + spriteHeight);
         }
     }
 
@@ -36,7 +35,7 @@ public class BackgroundManager : MonoBehaviour
                     prevIndex = BackgroundSprites.Count - 1;
 
                 var prevBack = BackgroundSprites[prevIndex];
-                background.transform.position = new Vector2(0, prevBack.transform.position.y + spriteHeight);
+                background.transform.localPosition = new Vector2(0, prevBack.transform.position.y + spriteHeight);
             }
 
             background.transform.Translate(new Vector2(0, -MovementSpeed));

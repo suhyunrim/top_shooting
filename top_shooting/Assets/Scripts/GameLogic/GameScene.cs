@@ -1,8 +1,5 @@
 ﻿using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameScene : Singleton<GameScene>
 {
@@ -11,27 +8,29 @@ public class GameScene : Singleton<GameScene>
     [SerializeField]
     private SpawnManager spawnManager;
 
-    [SerializeField]
-    private Player player;
-
     protected override void Awake()
     {
         base.Awake();
 
         TableLoader.LoadAllData();
 
-        Debug.Log("test: " + EnemyData.Get(1).Key);
-
         SetPlayComponent(false);
     }
 
     public void StartGame()
     {
+        MainMenu.Instance.gameObject.SetActive(false);
+
+        var playerPrefab = Resources.Load("Prefabs/Player") as GameObject;
+        var playerObject = Instantiate(playerPrefab);
+        playerObject.GetComponent<Player>().enabled = false;
+
         var playerSequence = DOTween.Sequence();
-        playerSequence.Append(player.transform.DOMoveY(-4f, 2f).SetEase(Ease.InCirc, 1.5f));
+        playerSequence.Append(playerObject.transform.DOMoveY(-4f, 2f).SetEase(Ease.InCirc, 1.5f));
         playerSequence.AppendCallback(() =>
         {
             IsPlaying = true;
+            playerObject.GetComponent<Player>().enabled = true;
             SetPlayComponent(true);
         });
     }
@@ -45,7 +44,7 @@ public class GameScene : Singleton<GameScene>
     private void SetPlayComponent(bool isOn)
     {
         spawnManager.enabled = isOn;
-        player.enabled = isOn;
         GameHUD.Instance.gameObject.SetActive(isOn);
+        MainMenu.Instance.gameObject.SetActive(!isOn);
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : CollisionObject
 {
@@ -27,6 +25,11 @@ public class Enemy : CollisionObject
         if (collision.gameObject.GetComponent<Player>() != null)
         {
             Destroy(collision.gameObject);
+            GameScene.Instance.GameOver();
+        }
+        else if (collision.gameObject.name == "Wall")
+        {
+            Destroy(gameObject);
         }
     }
 

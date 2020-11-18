@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
 public class MainMenu : UI<MainMenu>
 {
@@ -12,7 +9,6 @@ public class MainMenu : UI<MainMenu>
         Vars["GameStartButton"].GetComponent<Button>().onClick.AddListener(() =>
         {
             GameScene.Instance.StartGame();
-            gameObject.SetActive(false);
         });
     }
 }

@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class Player : CollisionObject
 {
@@ -40,7 +39,7 @@ public class Player : CollisionObject
             var diff = worldPosition.x - transform.position.x;
             if (Mathf.Abs(diff) < 0.05f)
             {
-                transform.position = new Vector3(worldPosition.x, defaultY, -0.5f);
+                transform.position = new Vector3(worldPosition.x, transform.position.y);
             }
             else
             {
