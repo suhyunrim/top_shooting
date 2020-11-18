@@ -18,6 +18,10 @@ public class GameScene : Singleton<GameScene>
     {
         base.Awake();
 
+        TableLoader.LoadAllData();
+
+        Debug.Log("test: " + EnemyData.Get(1).Key);
+
         SetPlayComponent(false);
     }
 

@@ -7,9 +7,19 @@ public class Enemy : CollisionObject
     [SerializeField]
     private int hp = 3;
 
-    private void Start()
+    private int enemyDataKey;
+
+    private EnemyData Data => EnemyData.Get(enemyDataKey);
+
+    private void Awake()
     {
-        MovementVector = new Vector2(0, -0.05f);
+        enemyDataKey = Random.Range(1, EnemyData.All.Length + 1);
+        hp = Data.Hp;
+
+        MovementVector = new Vector2(0, -0.02f);
+
+        var sprite = Resources.Load<Sprite>($"Images/Enemies/{Data.ImageName}");
+        GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
     protected override void OnCollisionEnter(Collision collision)
@@ -30,7 +40,7 @@ public class Enemy : CollisionObject
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<SpriteRenderer>().enabled = false;
 
-            GameHUD.Instance.AddScore(10);
+            GameHUD.Instance.AddScore(Data.Score);
 
             Invoke("DestroySelf", 1f);
         }
