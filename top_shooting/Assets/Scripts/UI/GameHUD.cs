@@ -2,11 +2,11 @@
 
 public class GameHUD : UI<GameHUD>
 {
-    private int score;
+    public int Score { get; private set; }
 
     public void AddScore(int additionalScore)
     {
-        score += additionalScore;
-        Vars["ScoreText"].GetComponent<Text>().text = $"Score: {score}";
+        Score += additionalScore;
+        Vars["ScoreText"].GetComponent<Text>().text = $"Score: {Score}";
     }
 }
