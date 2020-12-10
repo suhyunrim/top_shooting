@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Bullet : CollisionObject
 {
@@ -9,7 +7,7 @@ public class Bullet : CollisionObject
         MovementVector = new Vector2(0, 0.1f);
     }
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Wall")
         {

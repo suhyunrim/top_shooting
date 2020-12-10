@@ -13,10 +13,9 @@ public class GameScene : Singleton<GameScene>
     protected override void Awake()
     {
         base.Awake();
+        SetPlayComponent(false);
 
         TableLoader.LoadAllData();
-
-        SetPlayComponent(false);
     }
 
     public void StartGame()

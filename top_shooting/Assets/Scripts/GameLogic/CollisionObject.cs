@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(Collider))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public abstract class CollisionObject : MonoBehaviour
 {
     public Vector2 MovementVector;
@@ -12,5 +10,5 @@ public abstract class CollisionObject : MonoBehaviour
         transform.Translate(MovementVector);
     }
 
-    protected abstract void OnCollisionEnter(Collision collision);
+    protected abstract void OnTriggerEnter2D(Collider2D collision);
 }

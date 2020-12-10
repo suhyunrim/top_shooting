@@ -61,7 +61,7 @@ public class Player : CollisionObject
         bulletObject.transform.Translate(new Vector3(0, 0.5f));
     }
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
     }
 }
