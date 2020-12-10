@@ -1,13 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using UnityEngine;
-using System.IO.Compression;
-using System.Text;
-using System.Reflection;
 
 public class ClientDataLoader
 {
@@ -18,7 +15,7 @@ public class ClientDataLoader
 
     public static T[] LoadJson<T>(string fileName)
     {
-        TextAsset textAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>($"Assets/Tables/json/{fileName}.json");
+        TextAsset textAsset = Resources.Load<TextAsset>($"Json/{fileName}");
 
         using (var reader = new JsonTextReader(new StringReader(textAsset.text)))
         {
